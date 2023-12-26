@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { StayService } from '../stay.service';
+import { EnquiryFormDisplay } from '../EnquiryFormDisplay.model';
 
 @Component({
   selector: 'app-waitlisted',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WaitlistedComponent implements OnInit {
 
-  constructor() { }
+  enquiryFormDisplay!: EnquiryFormDisplay;
+
+  constructor(private stayService: StayService) { }
 
   ngOnInit(): void {
+    this.getEnquiryFormDisplay();
   }
-
+  getEnquiryFormDisplay(): void {
+    this.stayService.getEnquiryStatusData("Waitlisted")
+      .subscribe(enquiryFormDisplay => this.enquiryFormDisplay = enquiryFormDisplay);
+  }
 }
