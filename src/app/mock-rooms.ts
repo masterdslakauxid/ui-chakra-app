@@ -12,6 +12,21 @@ export const ROOMS_BOOKED_STATUS: RoomBooking[] = [
     { roomNo: 'SP 101',bookedOn :['2023-12-20', '2023-12-21'] } 
   ];
 
+  export const ENQUIRY_STATUS = {
+   "enquiryStatus":[
+      {   
+         "timestamp":"7/13/2021 9:15:24",      
+         "email":"captkk83@gmail.com",
+         "status":"Booked"
+      },
+      {         
+         "timestamp":"7/14/2021 21:59:27",
+         "email":"adv.mmdixit@gmail.com",
+         "status":"Waitlisted"
+      }
+   ]
+   };
+
   export const ENQUIRY_FORMS = {
     "Form Responses 1":[
        {

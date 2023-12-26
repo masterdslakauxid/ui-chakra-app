@@ -8,12 +8,18 @@ import { DatePipe } from '@angular/common';
 import { EnquirystatusComponent } from './enquirystatus/enquirystatus.component';
 import {TabView} from 'primeng/tabview';
 import {TabViewModule} from 'primeng/tabview';
+import { EnquiryComponent } from './enquiry/enquiry.component';
+import { BookedComponent } from './booked/booked.component';
+import { WaitlistedComponent } from './waitlisted/waitlisted.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RoomstatusComponent,
-    EnquirystatusComponent
+    EnquirystatusComponent,
+    EnquiryComponent,
+    BookedComponent,
+    WaitlistedComponent
   ],
   imports: [
     BrowserModule,

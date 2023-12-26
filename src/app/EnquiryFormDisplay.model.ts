@@ -9,7 +9,7 @@ export class EnquiryFormDisplay {
 
         "showHideConfig": { 
             "timestamp": false,    
-            "emailAddress": false,    
+            "emailAddress": true,    
             "fullName": true,    
             "age": true,    
             "gender": true,    
