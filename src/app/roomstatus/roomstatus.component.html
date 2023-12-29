@@ -1,41 +1,22 @@
-<p>Available rooms - Sadhguru padham</p>
-{{ currentDate | date }}
-{{ currentMonth }}
-<h1> First day of the month </h1>
-{{ firstDay }}
-{{ lastDay }}
-
-<div *ngIf="rooms.length">
-
-    <h2>Messages</h2>  
-    <div *ngFor='let room of rooms'> {{room.roomNo}} </div>
-  
-  </div>
-
-  <div *ngIf="dates.length">
-
-    
-    <!-- <div *ngFor='let date of dates'> {{date | date:"dd/MM" }} </div> -->
-
-    <p-table [value]="dates" [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template pTemplate="header">
-            <tr>
-                <th>Date</th>
-                <th>B1</th>
-                <th>B2</th>
-                <th>B3</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-date>
-            <tr>
-                <td>{{ date | date:"dd/MM" }}</td>
-                <td style=" background-color: green; width: 5%;">{{ "Y" }}</td>
-                <td style=" background-color: grey; width: 5%;">{{ "N" }}</td>
-                <td style=" background-color: green; width: 5%;">{{ "Y" }}</td>
-            </tr>
-        </ng-template>
-    </p-table>
-  
-  </div>
-  
-  
+<div>
+    <div *ngIf="dates.length" style="width: 80;">
+        <p-table [value]="dates" [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Date</th>
+                    <th>B1</th>
+                    <th>B2</th>
+                    <th>B3</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-date>
+                <tr>
+                    <td>{{ date | date:"dd/MM" }}</td>
+                    <td style=" background-color: green; width: 5%;">{{ "Y" }}</td>
+                    <td style=" background-color: grey; width: 5%;">{{ "N" }}</td>
+                    <td style=" background-color: green; width: 5%;">{{ "Y" }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

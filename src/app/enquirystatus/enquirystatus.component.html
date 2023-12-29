@@ -1,11 +1,19 @@
-<p-tabView>
-    <p-tabPanel header="Enquiry">
-     <app-enquiry></app-enquiry>
-    </p-tabPanel>
-    <p-tabPanel header="Wait listed">
-        <app-waitlisted></app-waitlisted>
-    </p-tabPanel>
-    <p-tabPanel header="Booked">
-        <app-booked></app-booked>
-       </p-tabPanel>
-  </p-tabView>
+<!-- <div class="card">
+    <button type="button" pButton pRipple (click)="addMessages()" label="Show" class="mr-2">Show</button>
+    <button type="button" pButton pRipple (click)="clearMessages()" icon="pi pi-times" label="Clear"
+        class="p-button-secondary">Clear</button>
+    <p-messages [(value)]="messages" [enableService]="false" [closable]="false"></p-messages>
+</div> -->
+<div>
+    <p-tabView>
+        <p-tabPanel header="Enquiry">
+            <app-enquiry></app-enquiry>
+        </p-tabPanel>
+        <p-tabPanel header="Wait listed">
+            <app-waitlisted></app-waitlisted>
+        </p-tabPanel>
+        <p-tabPanel header="Booked">
+            <app-booked></app-booked>
+        </p-tabPanel>
+    </p-tabView>
+</div>

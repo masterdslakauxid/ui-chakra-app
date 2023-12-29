@@ -6,11 +6,24 @@ import { RoomstatusComponent } from './roomstatus/roomstatus.component';
 import { TableModule } from 'primeng/table';
 import { DatePipe } from '@angular/common';
 import { EnquirystatusComponent } from './enquirystatus/enquirystatus.component';
-import {TabView} from 'primeng/tabview';
-import {TabViewModule} from 'primeng/tabview';
+import { TabViewModule } from 'primeng/tabview';
 import { EnquiryComponent } from './enquiry/enquiry.component';
 import { BookedComponent } from './booked/booked.component';
 import { WaitlistedComponent } from './waitlisted/waitlisted.component';
+import { MessageModule } from 'primeng/message';
+import { MessagesModule } from 'primeng/messages';
+import { MenuModule } from 'primeng/menu';
+import { MenubarModule } from 'primeng/menubar';
+import { RouterModule, Routes } from '@angular/router';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+
+const appRoutes: Routes = [
+  { path: 'enquiry', component: EnquirystatusComponent },
+  { path: 'roomstatus', component: RoomstatusComponent },
+];
+
+
 
 @NgModule({
   declarations: [
@@ -19,13 +32,23 @@ import { WaitlistedComponent } from './waitlisted/waitlisted.component';
     EnquirystatusComponent,
     EnquiryComponent,
     BookedComponent,
-    WaitlistedComponent
+    WaitlistedComponent,
+    HeaderComponent,
+    FooterComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     TableModule,
-    TabViewModule    
+    TabViewModule,
+    MessageModule,
+    MessagesModule,
+    MenubarModule,
+    MenuModule,
+    RouterModule.forRoot(
+      appRoutes, { enableTracing: true }
+    )
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
