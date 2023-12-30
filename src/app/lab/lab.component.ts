@@ -32,6 +32,8 @@ export class LabComponent implements OnInit {
       ]
     }];
 
+  bookedRoomsMap: Map<string, Booking> = new Map<string, Booking>([]);
+
   // currentStatus = {
   //   [:
   //     {"B1": [{ 'checkInDate': '2024-01-01', 'checkInTime': '12:00 PM', 'checkOutDate': '2024-01-02', 'checkOutTime': '11:00 AM' },
@@ -68,21 +70,32 @@ export class LabComponent implements OnInit {
 
   jsonToDateObj() {
 
-    this.bookedStatus.forEach((element: any) => {
-      console.log(element.roomNo);
-      console.log(element.bookedDates);
+    this.bookedStatus.forEach((mainElement: any) => {
+      console.log(mainElement.roomNo);
+      console.log(mainElement.bookedDates);
 
-      element.bookedDates.forEach((element: { [x: string]: string; }) => {
+      mainElement.bookedDates.forEach((element: { [x: string]: string; }) => {
         const booking = new Booking();
         booking.checkIn = element["checkInDate"] + " " + element["checkInTime"];
         booking.checkOut = element["checkOutDate"] + " " + element["checkOutTime"];
-        console.log("checkin " + booking.checkIn);
-        console.log("checkOut " + booking.checkIn);
-
-        //this.currentStatusObj.push(booking);
+        // console.log("checkin " + booking.checkIn);
+        // console.log("checkOut " + booking.checkIn);
+        //  console.log(mainElement.roomNo);
+        this.bookedRoomsMap.set(mainElement.roomNo, booking);
+        /// this.currentStatusObj.push(booking);
       });
     });
+    type NewType = Booking;
 
+    for (let key of this.bookedRoomsMap.keys()) {
+      console.log(key);
+      console.log(this.bookedRoomsMap.get(key)?.checkIn);
+    }
+
+    // const b1 = this.bookedRoomsMap.get("B1");
+    // const b2 = this.bookedRoomsMap.get("B2");
+    // console.log("B1 = " + b1.checkIn);
+    // console.log("B2 = " + b2.checkOut);
 
     // this.currentStatus[0]["B1"].forEach((element: { [x: string]: string; }) => {
     //   const booking = new Booking();

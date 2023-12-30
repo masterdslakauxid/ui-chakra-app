@@ -4,6 +4,8 @@ import { StayService } from '../stay.service';
 import { RoomBooking } from '../RoomBooking';
 import { DatePipe } from '@angular/common';
 import { BookingStatus } from '../BookingStatus';
+import { RoomAvailability } from '../RoomAvailability.model';
+import { Booking } from '../Booking.model';
 
 @Component({
   selector: 'app-roomstatus',
@@ -18,124 +20,73 @@ export class RoomstatusComponent implements OnInit {
   currentDate = new Date();
   firstDay = new Date();
   lastDay = new Date();
-
   dates: string[] = [];
- 
-  currentMonth!:number;
 
-  formData = {
-    "Form Responses 1":[
-       {
-          "Timestamp":"7/13/2021 9:15:24",
-          "Email Address":"captkk83@gmail.com",
-          "Full Name":"Kunal Kadam",
-          "Age":"38",
-          "Gender":"Male",
-          "WhatsApp number":"7506581386",
-          "Address":"A2/204,Highland Gardens, Dhokali, Thane ( W) Maharashtra,400608",
-          "How many members? ":"4",
-          "Number of rooms":"1",
-          "AC / Non-AC":"Non-AC",
-          "Arrival date":"7/22/21",
-          "Arrival time":"5:00:00 PM",
-          "Departure date":"7/27/21",
-          "Departure time":"1:00:00 PM",
-          "Please provide the details of the other members in your group. Name, Age, Gender, Your Relationship with them. ":"1)Swati Kadam, 38 , Female ,Wife\n2)Nitara Kadam , 4.3y ,Female, Doughter\n3)Sudhanwa Kadam, 1.9y , Male , Son",
-          "Remarks":"We have two small kids with us ."
-       },
-       {
-          "Timestamp":"7/14/2021 21:59:27",
-          "Email Address":"adv.mmdixit@gmail.com",
-          "Full Name":"Maneesh Dixit",
-          "Age":"43",
-          "Gender":"Male",
-          "WhatsApp number":"9819021068",
-          "Address":"D-27, Poorva CHS, Opp Saraswati English School, Panchpakhadi, Thane West",
-          "How many members? ":"2",
-          "Number of rooms":"1",
-          "AC / Non-AC":"Non-AC",
-          "Arrival date":"7/23/21",
-          "Arrival time":"5:30:00 PM",
-          "Departure date":"7/25/21",
-          "Departure time":"2:00:00 PM",
-          "Please provide the details of the other members in your group. Name, Age, Gender, Your Relationship with them. ":"Archana Dixit, 38, Female, Wife"
-       },
-       {
-          "Timestamp":"7/18/2021 13:33:12",
-          "Email Address":"rohanbir23@gmail.com",
-          "Full Name":"Rohanbir Singh",
-          "Age":"28",
-          "Gender":"male",
-          "WhatsApp number":"8750129229",
-          "Address":"B2302, Hiranandani Greenwood, Kelambakkam, TN 603103",
-          "How many members? ":"1",
-          "Number of rooms":"1",
-          "AC / Non-AC":"Non-AC",
-          "Arrival date":"7/19/21",
-          "Arrival time":"5:00:00 PM",
-          "Departure date":"7/26/21",
-          "Departure time":"8:00:00 AM",
-          "Please provide the details of the other members in your group. Name, Age, Gender, Your Relationship with them. ":"NA",
-          "Remarks":"Budget traveller looking for single person stay for the 7 days."
-       }
-    ]
- };
+  roomAvailability = new RoomAvailability();
+
+  currentMonth!: number;
+
+
+  bookedStatus: { roomNo: string, bookedDates: { 'checkInDate': string, 'checkInTime': string, 'checkOutDate': string, 'checkOutTime': string }[] }[] = [
+    {
+      'roomNo': 'B1', bookedDates: [{ 'checkInDate': '2024-01-01', 'checkInTime': '12:00 PM', 'checkOutDate': '2024-01-02', 'checkOutTime': '11:00 AM' },
+      { 'checkInDate': '2024-01-03', 'checkInTime': '12:00 PM', 'checkOutDate': '2024-01-04', 'checkOutTime': '11:00 AM' }
+      ]
+    },
+    {
+      'roomNo': 'B2', bookedDates: [{ 'checkInDate': '2024-01-01', 'checkInTime': '12:00 PM', 'checkOutDate': '2024-01-01', 'checkOutTime': '11:00 AM' },
+      { 'checkInDate': '2024-01-04', 'checkInTime': '12:00 PM', 'checkOutDate': '2024-01-05', 'checkOutTime': '11:00 AM' }
+      ]
+    }];
+
+  bookedRoomsMap: Map<string, Booking> = new Map<string, Booking>([]);
 
   constructor(private stayService: StayService, public datepipe: DatePipe) { }
-  
+
   ngOnInit(): void {
-    // const str = '2024-07-21';
 
-    // const date1 = new Date(str);
-    // console.log(date1);
+    this.jsonToDateObj();
+    //let roomAvailability = new RoomAvailability();
+    // this.roomAvailability.rooms = ["B1", "B2", "B3"];
+    // this.roomAvailability.availability = [{ bookedStatus: ['1/11 12:00 PM - 2/11 11:00 AM', 'yes', 'no'] }, { bookedStatus: ['2/11', '11:00 AM', 'yes', 'yes'] }];
 
-    this.getRooms();
-    this.getMonth();
-    this.getRoomBookings();
+    // this.getRooms();
+    // this.getMonth();
+    // this.getRoomBookings();
 
-    this.firstDay = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 1);
-    this.lastDay = new Date(this.currentDate.getFullYear(),this.currentDate.getMonth() + 1, 0);
+    // this.firstDay = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 1);
+    // this.lastDay = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() + 1, 0);
 
-    // const dateL =new Date();
-    // let latest_date =this.datepipe.transform(dateL, 'yyyy-MM-dd');
-    // console.log (" test .....>" + latest_date);
-
-
-    for (var i = 1; i < 31; i++) {
-      var date = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), i);    
-      var latest_date = this.datepipe.transform(date, 'yyyy-MM-dd');  
-      this.dates.push(latest_date?latest_date : "" );
-    } 
-
-    // for (booking: this.roomsBookings) {
-
+    // for (var i = 1; i < 31; i++) {
+    //   var date = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), i);
+    //   var latest_date = this.datepipe.transform(date, 'yyyy-MM-dd');
+    //   this.dates.push(latest_date ? latest_date : "");
     // }
 
-    this.dates.forEach( (date) => {
-      console.log(date);
-     // console.log("Day ", date.getDay());
-      this.roomsBookings.forEach( (booking) => {
 
+    this.dates.forEach((date) => {
+      console.log(date);
+      this.roomsBookings.forEach((booking) => {
         // bookingstatus: BookingStatus = {
         //   date: "2023-12-21",
         //   status: ['a','b'] 
         // }
-         // console.log(booking.bookedOn);
-          var bookedOnLocal:string[] = booking.bookedOn;
-         // console.log(" Date" + date + " , " + booking.bookedOn.includes(date))
-         if(booking.bookedOn.includes(date)) {
-             console.log(" Date" + date + " , " + booking.roomNo  + ", "  +  booking.bookedOn.includes(date))
-         }
-          // bookedOnLocal.forEach( (bookedDate) => {
-          //   const str =bookedDate;
-          //   let newDate = new Date(str);
-          //   console.log(" system date" + newDate.getDay()  + " =  booked date" +  date.getDay());
-          //   if(newDate.getDay()==date.getDay()) {
-          //     console.log("Room"+ booking.roomNo + " booked on " + date);
-          //   }
-          // });
-          // string[] bookedOn = booking.bookedOn;
-          
+        // console.log(booking.bookedOn);
+        var bookedOnLocal: string[] = booking.bookedOn;
+        // console.log(" Date" + date + " , " + booking.bookedOn.includes(date))
+        if (booking.bookedOn.includes(date)) {
+          console.log(" Date" + date + " , " + booking.roomNo + ", " + booking.bookedOn.includes(date))
+        }
+        // bookedOnLocal.forEach( (bookedDate) => {
+        //   const str =bookedDate;
+        //   let newDate = new Date(str);
+        //   console.log(" system date" + newDate.getDay()  + " =  booked date" +  date.getDay());
+        //   if(newDate.getDay()==date.getDay()) {
+        //     console.log("Room"+ booking.roomNo + " booked on " + date);
+        //   }
+        // });
+        // string[] bookedOn = booking.bookedOn;
+
       });
     });
 
@@ -143,11 +94,31 @@ export class RoomstatusComponent implements OnInit {
     //   console.log(this.roomsBookings[index]);  // output: Apple Orange Banana
     // }
 
-    
+
 
   }
+  jsonToDateObj() {
+
+    this.bookedStatus.forEach((mainElement: any) => {
+      console.log(mainElement.roomNo);
+      console.log(mainElement.bookedDates);
+
+      mainElement.bookedDates.forEach((element: { [x: string]: string; }) => {
+        const booking = new Booking();
+        booking.checkIn = element["checkInDate"] + " " + element["checkInTime"];
+        booking.checkOut = element["checkOutDate"] + " " + element["checkOutTime"];
+        this.bookedRoomsMap.set(mainElement.roomNo, booking);
+      });
+    });
+    type NewType = Booking;
+
+    for (let key of this.bookedRoomsMap.keys()) {
+      console.log(key);
+      console.log(this.bookedRoomsMap.get(key)?.checkIn);
+    }
+  }
   getMonth() {
-    this.currentMonth =this.currentDate.getMonth();
+    this.currentMonth = this.currentDate.getMonth();
   }
 
   // getRooms(): void {
@@ -156,12 +127,12 @@ export class RoomstatusComponent implements OnInit {
 
   getRooms(): void {
     this.stayService.getRooms()
-        .subscribe(rooms => this.rooms = rooms);
+      .subscribe(rooms => this.rooms = rooms);
   }
-  
+
   getRoomBookings(): void {
     this.stayService.getRoomBookings()
-        .subscribe(roomsBookings => this.roomsBookings = roomsBookings);
+      .subscribe(roomsBookings => this.roomsBookings = roomsBookings);
   }
 
 }

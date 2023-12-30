@@ -1,0 +1,9 @@
+.booked {
+    background-color: grey;
+    width: 5%;
+}
+
+.available {
+    background-color: green;
+    width: 5%;
+}

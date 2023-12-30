@@ -21,13 +21,13 @@ export class HeaderComponent implements OnInit {
         routerLinkActiveOptions: 'active'
       },
       {
-        label: 'Enquiry',
+        label: 'Enquiry Details',
         icon: 'pi pi-fw pi-phone',
         routerLink: "/enquiry",
         routerLinkActiveOptions: 'active'
       },
       {
-        label: 'Room Availability',
+        label: 'Available Rooms',
         icon: 'pi pi-fw pi-building',
         routerLink: "/roomstatus",
         routerLinkActiveOptions: 'active'

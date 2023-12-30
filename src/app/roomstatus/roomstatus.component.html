@@ -1,20 +1,19 @@
 <div>
-    <div *ngIf="dates.length" style="width: 80;">
-        <p-table [value]="dates" [tableStyle]="{ 'min-width': '50rem' }">
+    {{roomAvailability.availability.length}}
+</div>
+<div>
+    <div *ngIf="roomAvailability.availability.length" style="width: 80;">
+        <p-table [value]="roomAvailability.availability" [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template pTemplate="header">
                 <tr>
-                    <th>Date</th>
-                    <th>B1</th>
-                    <th>B2</th>
-                    <th>B3</th>
+                    <th *ngFor="let header of roomAvailability.availability">{{header}}</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-date>
+            <ng-template pTemplate="body" let-availableRooms>
                 <tr>
-                    <td>{{ date | date:"dd/MM" }}</td>
-                    <td style=" background-color: green; width: 5%;">{{ "Y" }}</td>
-                    <td style=" background-color: grey; width: 5%;">{{ "N" }}</td>
-                    <td style=" background-color: green; width: 5%;">{{ "Y" }}</td>
+                    <!-- <td>{{ availableRooms.dateStr | date:"dd/MM" }}</td> -->
+                    <td *ngFor="let col of availableRooms.bookedStatus" [ngClass]="col =='yes'? 'booked': ''">{{
+                        col }}</td>
                 </tr>
             </ng-template>
         </p-table>
