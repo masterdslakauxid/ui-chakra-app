@@ -15,6 +15,12 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.items = [
       {
+        label: 'Lab',
+        icon: 'pi pi-fw pi-phone',
+        routerLink: "/lab",
+        routerLinkActiveOptions: 'active'
+      },
+      {
         label: 'Enquiry',
         icon: 'pi pi-fw pi-phone',
         routerLink: "/enquiry",

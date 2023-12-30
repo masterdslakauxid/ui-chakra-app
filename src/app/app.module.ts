@@ -17,13 +17,14 @@ import { MenubarModule } from 'primeng/menubar';
 import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { LabComponent } from './lab/lab.component';
 
 const appRoutes: Routes = [
+  { path: 'lab', component: LabComponent },
   { path: 'enquiry', component: EnquirystatusComponent },
   { path: 'roomstatus', component: RoomstatusComponent },
+  { path: '', component: LabComponent }
 ];
-
-
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ const appRoutes: Routes = [
     WaitlistedComponent,
     HeaderComponent,
     FooterComponent,
-
+    LabComponent
   ],
   imports: [
     BrowserModule,
