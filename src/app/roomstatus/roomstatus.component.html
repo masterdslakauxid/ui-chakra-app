@@ -3,20 +3,30 @@
         <br>
         <br>
         <table>
+
             <tr>
                 <td>
                     <span class="p-float-label">
                         <p-calendar [(ngModel)]="checkIn" [showIcon]="true" [minDate]="minDate"
-                            (ngModelChange)="onBlurMethod()" inputId="checkin_date"></p-calendar>
+                            (ngModelChange)="onBlurMethod()" inputId="checkin_date" dateFormat="dd-mm-yy"></p-calendar>
                         <label for="checkin_date">Check-in Date</label>
                     </span>
+
+                    <p-calendar [showTime]="true" [timeOnly]="true" hourFormat="12" minlength="5"
+                        [(ngModel)]="checkInTime" styleClass="dateTimeField">
+                    </p-calendar>
+
                 </td>
                 <td>
                     <span class="p-float-label">
                         <p-calendar [(ngModel)]="checkOut" [showIcon]="true" [minDate]="minDate1"
-                            (ngModelChange)="onBlurCheckoutDate()" inputId="checkout_date"></p-calendar>
+                            (ngModelChange)="onBlurCheckoutDate()" inputId="checkout_date"
+                            dateFormat="dd-mm-yy"></p-calendar>
                         <label for="checkout_date">Check-out Date</label>
                     </span>
+                    <p-calendar [showTime]="true" [timeOnly]="true" hourFormat="12" minlength="5"
+                        [(ngModel)]="checkOutTime" styleClass="dateTimeField">
+                    </p-calendar>
                 </td>
                 <td>
                     <span class="p-button-label"> {{totalDays}}</span>
@@ -51,6 +61,11 @@
                     </td>
                     <td>{{date.totalDays}}
                     <td>{{date.reservedFor}}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" severity="Success">
+                        <span class="p-button-label"> {{booking.statusMsg}}</span>
                     </td>
                 </tr>
             </ng-template>

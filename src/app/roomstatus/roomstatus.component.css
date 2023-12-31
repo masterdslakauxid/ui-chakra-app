@@ -7,3 +7,7 @@
     background-color: green;
     width: 5%;
 }
+
+.dateTimeField input {
+    width: 200px;
+}
