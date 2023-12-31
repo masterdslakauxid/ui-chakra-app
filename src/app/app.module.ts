@@ -18,6 +18,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { LabComponent } from './lab/lab.component';
+import { CalendarModule } from 'primeng/calendar';
+import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ButtonModule } from 'primeng/button';
+
 
 const appRoutes: Routes = [
   { path: 'lab', component: LabComponent },
@@ -47,6 +52,10 @@ const appRoutes: Routes = [
     MessagesModule,
     MenubarModule,
     MenuModule,
+    CalendarModule,
+    FormsModule,
+    ButtonModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(
       appRoutes, { enableTracing: true }
     )
