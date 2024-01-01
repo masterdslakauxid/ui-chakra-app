@@ -42,10 +42,13 @@
         </ng-template>
         <ng-template pTemplate="body" let-enquiryForm>
             <tr>
-                <td *ngIf="enquiryFormDisplay.configs.showHideConfig.timestamp == true">{{ enquiryForm.timestamp}}</td>
-                <td *ngIf="enquiryFormDisplay.configs.showHideConfig.emailAddress == true">{{ enquiryForm.emailAddress
+                <td *ngIf="enquiryFormDisplay.configs.showHideConfig.timestamp == true">{{ enquiryForm.timestamp}}
+                </td>
+                <td *ngIf="enquiryFormDisplay.configs.showHideConfig.emailAddress == true">{{
+                    enquiryForm.emailAddress
                     }}</td>
-                <td *ngIf="enquiryFormDisplay.configs.showHideConfig.fullName == true">{{ enquiryForm.fullName }}</td>
+                <td *ngIf="enquiryFormDisplay.configs.showHideConfig.fullName == true">{{ enquiryForm.fullName }}
+                </td>
                 <td *ngIf="enquiryFormDisplay.configs.showHideConfig.age == true">{{ enquiryForm.age }}</td>
                 <td *ngIf="enquiryFormDisplay.configs.showHideConfig.gender == true">{{ enquiryForm.gender }}</td>
                 <td *ngIf="enquiryFormDisplay.configs.showHideConfig.whatsappNumber == true">{{
@@ -55,14 +58,19 @@
                     enquiryForm.howManyMembers }}</td>
                 <td *ngIf="enquiryFormDisplay.configs.showHideConfig.noOfRooms == true" style="width: 5%;">{{
                     enquiryForm.noOfRooms }}</td>
-                <td *ngIf="enquiryFormDisplay.configs.showHideConfig.acOrNonAc == true">{{ enquiryForm.acOrNonAc }}</td>
-                <td *ngIf="enquiryFormDisplay.configs.showHideConfig.arrivalDate == true">{{ enquiryForm.arrivalDate }}
+                <td *ngIf="enquiryFormDisplay.configs.showHideConfig.acOrNonAc == true">{{ enquiryForm.acOrNonAc }}
                 </td>
-                <td *ngIf="enquiryFormDisplay.configs.showHideConfig.arrivalTime == true">{{ enquiryForm.arrivalTime }}
+                <td *ngIf="enquiryFormDisplay.configs.showHideConfig.arrivalDate == true">{{ enquiryForm.arrivalDate
+                    }}
                 </td>
-                <td *ngIf="enquiryFormDisplay.configs.showHideConfig.departureDate == true">{{ enquiryForm.departureDate
+                <td *ngIf="enquiryFormDisplay.configs.showHideConfig.arrivalTime == true">{{ enquiryForm.arrivalTime
+                    }}
+                </td>
+                <td *ngIf="enquiryFormDisplay.configs.showHideConfig.departureDate == true">{{
+                    enquiryForm.departureDate
                     }}</td>
-                <td *ngIf="enquiryFormDisplay.configs.showHideConfig.departureTime == true">{{ enquiryForm.departureTime
+                <td *ngIf="enquiryFormDisplay.configs.showHideConfig.departureTime == true">{{
+                    enquiryForm.departureTime
                     }}</td>
                 <td *ngIf="enquiryFormDisplay.configs.showHideConfig.detailsOfMembers == true">{{
                     enquiryForm.detailsOfMembers }}</td>
@@ -71,5 +79,4 @@
             </tr>
         </ng-template>
     </p-table>
-
 </div>

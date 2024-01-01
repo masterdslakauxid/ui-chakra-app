@@ -1,74 +1,77 @@
-<div>
-    <div class="card flex justify-content-center">
-        <br>
-        <br>
-        <table>
+<section class="landing-hero py-8 px-5 lg:px-8">
+    <div>
+        <div class="card flex justify-content-center">
+            <br>
+            <br>
+            <table>
 
-            <tr>
-                <td>
-                    <span class="p-float-label">
-                        <p-calendar [(ngModel)]="checkIn" [showIcon]="true" [minDate]="minDate"
-                            (ngModelChange)="onBlurMethod()" inputId="checkin_date" dateFormat="dd-mm-yy"></p-calendar>
-                        <label for="checkin_date">Check-in Date</label>
-                    </span>
+                <tr>
+                    <td>
+                        <span class="p-float-label">
+                            <p-calendar [(ngModel)]="checkIn" [showIcon]="true" [minDate]="minDate"
+                                (ngModelChange)="onBlurMethod()" inputId="checkin_date"
+                                dateFormat="dd-mm-yy"></p-calendar>
+                            <label for="checkin_date">Check-in Date</label>
+                        </span>
 
-                    <p-calendar [showTime]="true" [timeOnly]="true" hourFormat="12" minlength="5"
-                        [(ngModel)]="checkInTime" styleClass="dateTimeField">
-                    </p-calendar>
+                        <p-calendar [showTime]="true" [timeOnly]="true" hourFormat="12" minlength="5"
+                            [(ngModel)]="checkInTime" styleClass="dateTimeField">
+                        </p-calendar>
 
-                </td>
-                <td>
-                    <span class="p-float-label">
-                        <p-calendar [(ngModel)]="checkOut" [showIcon]="true" [minDate]="minDate1"
-                            (ngModelChange)="onBlurCheckoutDate()" inputId="checkout_date"
-                            dateFormat="dd-mm-yy"></p-calendar>
-                        <label for="checkout_date">Check-out Date</label>
-                    </span>
-                    <p-calendar [showTime]="true" [timeOnly]="true" hourFormat="12" minlength="5"
-                        [(ngModel)]="checkOutTime" styleClass="dateTimeField">
-                    </p-calendar>
-                </td>
-                <td>
-                    <span class="p-button-label"> {{totalDays}}</span>
-                </td>
-                <td>
-                    &nbsp; &nbsp;<p-button label="Submit" (onClick)="checkAvailability()"></p-button>
-                </td>
-            </tr>
-        </table>
+                    </td>
+                    <td>
+                        <span class="p-float-label">
+                            <p-calendar [(ngModel)]="checkOut" [showIcon]="true" [minDate]="minDate1"
+                                (ngModelChange)="onBlurCheckoutDate()" inputId="checkout_date"
+                                dateFormat="dd-mm-yy"></p-calendar>
+                            <label for="checkout_date">Check-out Date</label>
+                        </span>
+                        <p-calendar [showTime]="true" [timeOnly]="true" hourFormat="12" minlength="5"
+                            [(ngModel)]="checkOutTime" styleClass="dateTimeField">
+                        </p-calendar>
+                    </td>
+                    <td>
+                        <span class="p-button-label"> {{totalDays}}</span>
+                    </td>
+                    <td>
+                        &nbsp; &nbsp;<p-button label="Submit" (onClick)="checkAvailability()"></p-button>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
-</div>
-<div>
-    <div *ngIf="bookedRoomsArr.length" style="width: 80;">
-        <p-table [value]="bookedRoomsArr" [tableStyle]="{ 'min-width': '50rem' }">
-            <!-- <ng-template pTemplate="header">
+    <div>
+        <div *ngIf="bookedRoomsArr.length" style="width: 80;">
+            <p-table [value]="bookedRoomsArr" [tableStyle]="{ 'min-width': '50rem' }">
+                <!-- <ng-template pTemplate="header">
                 <tr>
                     <th *ngFor="let header of bookedRoomsArr">{{header.roomId}}</th>
                 </tr>
             </ng-template> -->
-            <ng-template pTemplate="body" let-booking>
-                <tr>
-                    <td style="background-color: aqua;">{{ booking.roomId }}</td>
-                    <!-- <td *ngFor="let date of booking.bookedDates">{{date.checkInDate}}</td> -->
-                </tr>
-                <tr>
-                    <td style="font-weight: bold; width: 5%;">Checkin-Checkout</td>
-                    <td style="font-weight: bold; width: 5%;"> Total #days </td>
-                    <td style="font-weight: bold; width: 5%;">Reserved for</td>
-                </tr>
-                <tr *ngFor="let date of booking.bookings">
-                    <td>{{date.checkIn | date:"dd/MM hh:mm a (EE)"}} - {{date.checkOut | date:"dd/MM hh:mm a (EE)"}}
-                    </td>
-                    <td>{{date.totalDays}}
-                    <td>{{date.reservedFor}}
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3" severity="Success">
-                        <span class="p-button-label"> {{booking.statusMsg}}</span>
-                    </td>
-                </tr>
-            </ng-template>
-        </p-table>
+                <ng-template pTemplate="body" let-booking>
+                    <tr>
+                        <td style="background-color: aqua;" colspan="3">{{ booking.roomId }}</td>
+                        <!-- <td *ngFor="let date of booking.bookedDates">{{date.checkInDate}}</td> -->
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; width: 5%;">Checkin-Checkout</td>
+                        <td style="font-weight: bold; width: 5%;"> Total #days </td>
+                        <td style="font-weight: bold; width: 5%;">Reserved for</td>
+                    </tr>
+                    <tr *ngFor="let date of booking.bookings">
+                        <td>{{date.checkIn | date:"dd/MM hh:mm a (EE)"}} - {{date.checkOut | date:"dd/MM hh:mm a (EE)"}}
+                        </td>
+                        <td>{{date.totalDays}}
+                        <td>{{date.reservedFor}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" severity="Success">
+                            <span class="p-button-label"> {{booking.statusMsg}}</span>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
     </div>
-</div>
+</section>
