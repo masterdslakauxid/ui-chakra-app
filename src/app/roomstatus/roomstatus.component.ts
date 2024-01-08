@@ -24,24 +24,24 @@ export class RoomstatusComponent implements OnInit {
   roomAvailability = new RoomAvailability();
   currentMonth!: number;
   bookedRoomsMap: Map<string, Booking> = new Map<string, Booking>([]);
-  bookedRoomsArr: { roomId: string, bookings: Booking[], statusMsg: string }[] = [];
+  bookedRoomsArr: { roomId: string, bookings: Booking[], statusMsg: string, status: boolean }[] = [];
   roomsIds: string[] = [];
   totalDays: string = "0 days";
   status!: string;
 
-  bookedStatus: { roomNo: string, bookedDates: { 'checkInDate': string, 'checkInTime': string, 'checkOutDate': string, 'checkOutTime': string, 'reservedFor': string }[] }[] = [
+  bookedStatus: { roomNo: string, bookedDates: { 'checkInDate': string, 'checkOutDate': string, 'reservedFor': string }[] }[] = [
     {
-      'roomNo': 'B1', bookedDates: [{ 'checkInDate': '2024-01-01', 'checkInTime': '12:00 PM', 'checkOutDate': '2024-01-02', 'checkOutTime': '11:00 AM', 'reservedFor': 'Ram' },
-      { 'checkInDate': '2024-01-03', 'checkInTime': '12:00 PM', 'checkOutDate': '2024-01-07', 'checkOutTime': '11:00 AM', 'reservedFor': 'Lakshman' }
+      'roomNo': 'B1', bookedDates: [{ 'checkInDate': '2024-01-01', 'checkOutDate': '2024-01-02', 'reservedFor': 'Ram' },
+      { 'checkInDate': '2024-01-03', 'checkOutDate': '2024-01-07', 'reservedFor': 'Lakshman' }
       ]
     },
     {
-      'roomNo': 'B2', bookedDates: [{ 'checkInDate': '2024-01-01', 'checkInTime': '12:00 PM', 'checkOutDate': '2024-01-02', 'checkOutTime': '11:00 AM', 'reservedFor': 'Krishna' },
-      { 'checkInDate': '2024-01-04', 'checkInTime': '12:00 PM', 'checkOutDate': '2024-01-05', 'checkOutTime': '11:00 AM', 'reservedFor': 'Perumal' }
+      'roomNo': 'B2', bookedDates: [{ 'checkInDate': '2024-01-01', 'checkOutDate': '2024-01-02', 'reservedFor': 'Krishna' },
+      { 'checkInDate': '2024-01-04', 'checkOutDate': '2024-01-05', 'reservedFor': 'Perumal' }
       ]
     },
     {
-      'roomNo': 'B3', bookedDates: [{ 'checkInDate': '2024-01-10', 'checkInTime': '12:00 PM', 'checkOutDate': '2024-01-14', 'checkOutTime': '11:00 AM', 'reservedFor': 'Kanna' }]
+      'roomNo': 'B3', bookedDates: [{ 'checkInDate': '2024-01-10', 'checkOutDate': '2024-01-14', 'reservedFor': 'Kanna' }]
     }
   ];
 
@@ -51,6 +51,7 @@ export class RoomstatusComponent implements OnInit {
   ngOnInit(): void {
     //this.minDate1.setDate(this.minDate.getDate() + 1);
     this.jsonToDateObj();
+    this.aBookedFor = "Shiva";
   }
 
   value!: Date;
@@ -63,6 +64,9 @@ export class RoomstatusComponent implements OnInit {
   //   let min = new Date($event).getMinutes();
   //   this.timeValue = `${hour}:${min}`;
   // }
+
+  bookingRequest = new Booking();
+  aBookedFor!: string;
 
   checkAvailability() {
     console.log("checkIn " + this.checkIn);
@@ -79,60 +83,59 @@ export class RoomstatusComponent implements OnInit {
     console.log(" checkInTimeStr " + checkInTimeStr);
     console.log(" checkOutTimeStr " + checkOutTimeStr);
 
-
-
     let unavailable = false;
-    let bookingRequest = new Booking();
+    // let bookingRequest = new Booking();
     if (checkInTimeStr && checkOutTimeStr) {
-      bookingRequest.checkIn = checkInStr + " " + checkInTimeStr;
-      bookingRequest.checkOut = checkOutStr + " " + checkOutTimeStr;
+      this.bookingRequest.checkIn = checkInStr + " " + checkInTimeStr;
+      this.bookingRequest.checkOut = checkOutStr + " " + checkOutTimeStr;
     } else {
-      bookingRequest.checkIn = checkInStr + " 12:00 PM";
-      bookingRequest.checkOut = checkOutStr + " 11:00 AM";
-
+      this.bookingRequest.checkIn = checkInStr + " 12:00 PM";
+      this.bookingRequest.checkOut = checkOutStr + " 11:00 AM";
     }
 
     for (let bookedRoom of this.bookedRoomsArr) {
       console.log(bookedRoom.roomId);
       if (bookedRoom.bookings.length == 0) {
-        bookedRoom.statusMsg = "Congrats .. room is available. This is the first booking " + this.getDatesAsMsg(bookingRequest.checkIn, bookingRequest.checkOut);
+        bookedRoom.statusMsg = "Congrats .. room is available. This is the first booking " + this.getDatesAsMsg(this.bookingRequest.checkIn, this.bookingRequest.checkOut);
+        bookedRoom.status = true;
       } else {
         for (var i = 0; i < bookedRoom.bookings.length; i++) {
           let booking = bookedRoom.bookings[i];
           let currentBookedCheckedIn = new Date(booking.checkIn);
           let currentBookedCheckedOut = new Date(booking.checkOut);
 
-          let requestedCheckedIn = new Date(bookingRequest.checkIn);
-          let requestedCheckedOut = new Date(bookingRequest.checkOut);
+          let requestedCheckedIn = new Date(this.bookingRequest.checkIn);
+          let requestedCheckedOut = new Date(this.bookingRequest.checkOut);
 
           if ((requestedCheckedIn.getTime() <= currentBookedCheckedIn.getTime()) && (requestedCheckedOut.getTime() <= currentBookedCheckedIn.getTime())) {
             console.log("Congratulations... Falls on the left");
             console.log("Req. time falling within or equal to the booked time");
-            console.log("Req  " + bookingRequest.checkIn + " - " + bookingRequest.checkOut);
+            console.log("Req  " + this.bookingRequest.checkIn + " - " + this.bookingRequest.checkOut);
             console.log("Book " + booking.checkIn + " - " + booking.checkOut);
           } else if ((requestedCheckedIn.getTime() >= currentBookedCheckedOut.getTime()) && (requestedCheckedOut.getTime() >= currentBookedCheckedOut.getTime())) {
             console.log("Congratulations... Falls on the Right");
             console.log("Req. time falling within or equal to the booked time");
-            console.log("Req  " + bookingRequest.checkIn + " - " + bookingRequest.checkOut);
+            console.log("Req  " + this.bookingRequest.checkIn + " - " + this.bookingRequest.checkOut);
             console.log("Book " + booking.checkIn + " - " + booking.checkOut);
           } else {
             console.log("Sorry... ");
             console.log("overlapping");
-            console.log("Req  " + bookingRequest.checkIn + " - " + bookingRequest.checkOut);
+            console.log("Req  " + this.bookingRequest.checkIn + " - " + this.bookingRequest.checkOut);
             console.log("Book " + booking.checkIn + " - " + booking.checkOut);
             unavailable = true;
             break;
           }
         }
         if (unavailable) {
-          bookedRoom.statusMsg = "Sorry. No vacant room is found for the selected dates" + this.getDatesAsMsg(bookingRequest.checkIn, bookingRequest.checkOut);
-          console.log(bookingRequest);
+          bookedRoom.statusMsg = "Sorry. No vacant room is found for the selected dates" + this.getDatesAsMsg(this.bookingRequest.checkIn, this.bookingRequest.checkOut);
+          console.log(this.bookingRequest);
+          bookedRoom.status = false;
         } else {
-          bookedRoom.statusMsg = "Congratulations. Room is available for the selected dates" + this.getDatesAsMsg(bookingRequest.checkIn, bookingRequest.checkOut);
+          bookedRoom.statusMsg = "Congratulations. Room is available for the selected dates" + this.getDatesAsMsg(this.bookingRequest.checkIn, this.bookingRequest.checkOut);
+          bookedRoom.status = true;
         }
         unavailable = false;
       }
-
     }
   }
 
@@ -168,15 +171,42 @@ export class RoomstatusComponent implements OnInit {
       let bookingList: Booking[] = [];
       mainElement.bookedDates.forEach((element: { [x: string]: string; }) => {
         const booking = new Booking();
-        booking.checkIn = element["checkInDate"] + " " + element["checkInTime"];
-        booking.checkOut = element["checkOutDate"] + " " + element["checkOutTime"];
+        booking.checkIn = element["checkInDate"]; //+ " " + element["checkInTime"];
+        booking.checkOut = element["checkOutDate"];// + " " + element["checkOutTime"];
         booking.totalDays = this.calculateDiff(new Date(element["checkInDate"]), new Date(element["checkOutDate"]));
         booking.reservedFor = element["reservedFor"];
         this.bookedRoomsMap.set(mainElement.roomNo, booking);
         bookingList.push(booking);
       });
-      this.bookedRoomsArr.push({ roomId: mainElement.roomNo, bookings: bookingList, statusMsg: '' })
+      this.bookedRoomsArr.push({ roomId: mainElement.roomNo, bookings: bookingList, statusMsg: '', status: false })
     });
+  }
+  initiateBooking(roomId: string, aCheckIn: string, aCheckOut: string, aBookedFor: string) {
+    console.log("Button clicked" + roomId);
+    console.log("Button clicked" + this.bookingRequest.checkIn);
+    console.log("Button clicked" + this.bookingRequest.checkOut);
+    console.log("Button clicked" + aBookedFor);
+    //console.log( this.getDatesAsMsg(this.bookingRequest.checkIn, this.bookingRequest.checkOut));
+
+
+    for (let bookedRoom of this.bookedStatus) {
+      console.log(bookedRoom.roomNo);
+      if (bookedRoom.roomNo == roomId) {
+        bookedRoom.bookedDates.push({ 'checkInDate': this.bookingRequest.checkIn, 'checkOutDate': this.bookingRequest.checkOut, 'reservedFor': this.aBookedFor })
+      }
+    }
+    this.bookedRoomsArr = [];
+    this.jsonToDateObj();
+    for (let bookedRoom of this.bookedStatus) {
+      console.log(bookedRoom.roomNo);
+      if (bookedRoom.roomNo == roomId) {
+        for (let room of bookedRoom.bookedDates) {
+          console.log(room);
+        }
+      }
+    }
+
+
   }
 
 

@@ -1,85 +1,164 @@
-<section class="landing-hero py-8 px-5 lg:px-8">
-    <div *ngIf="enquiryFormDisplay.enquiryForms">
-        <p-table [value]="enquiryFormDisplay.enquiryForms" [tableStyle]="{ 'min-width': '50rem' }"
-            styleClass="p-datatable-striped">
-            <ng-template pTemplate="header">
-                <tr>
-                    <!-- <th *ngFor="let column of enquiryFormDisplay.configs.columns; ">{{column}}</th> -->
-                    <th *ngIf="enquiryFormDisplay.configs.showHideConfig.timestamp == true">
-                        {{enquiryFormDisplay.configs.columnNames.timestamp}}</th>
-                    <th *ngIf="enquiryFormDisplay.configs.showHideConfig.emailAddress == true">{{
-                        enquiryFormDisplay.configs.columnNames.emailAddress }}</th>
-                    <th *ngIf="enquiryFormDisplay.configs.showHideConfig.fullName == true">
-                        {{enquiryFormDisplay.configs.columnNames.fullName }}</th>
-                    <th *ngIf="enquiryFormDisplay.configs.showHideConfig.age == true">
-                        {{enquiryFormDisplay.configs.columnNames.age }}</th>
-                    <th *ngIf="enquiryFormDisplay.configs.showHideConfig.gender == true">
-                        {{enquiryFormDisplay.configs.columnNames.gender }}</th>
-                    <th *ngIf="enquiryFormDisplay.configs.showHideConfig.whatsappNumber == true">
-                        {{enquiryFormDisplay.configs.columnNames.whatsappNumber }}</th>
-                    <th *ngIf="enquiryFormDisplay.configs.showHideConfig.address == true">
-                        {{enquiryFormDisplay.configs.columnNames.address }}</th>
-                    <th *ngIf="enquiryFormDisplay.configs.showHideConfig.howManyMembers == true" style="width: 5%;">
-                        {{enquiryFormDisplay.configs.columnNames.howManyMembers }}</th>
-                    <th *ngIf="enquiryFormDisplay.configs.showHideConfig.noOfRooms == true" style="width: 5%;">
-                        {{enquiryFormDisplay.configs.columnNames.noOfRooms }}</th>
-                    <th *ngIf="enquiryFormDisplay.configs.showHideConfig.acOrNonAc == true">
-                        {{enquiryFormDisplay.configs.columnNames.acOrNonAc }}</th>
-                    <th *ngIf="enquiryFormDisplay.configs.showHideConfig.arrivalDate == true">
-                        {{enquiryFormDisplay.configs.columnNames.arrivalDate }}</th>
-                    <th *ngIf="enquiryFormDisplay.configs.showHideConfig.arrivalTime == true">
-                        {{enquiryFormDisplay.configs.columnNames.arrivalTime }}</th>
-                    <th *ngIf="enquiryFormDisplay.configs.showHideConfig.departureDate == true">
-                        {{enquiryFormDisplay.configs.columnNames.departureDate }}</th>
-                    <th *ngIf="enquiryFormDisplay.configs.showHideConfig.departureTime == true">
-                        {{enquiryFormDisplay.configs.columnNames.departureTime }}</th>
-                    <th *ngIf="enquiryFormDisplay.configs.showHideConfig.detailsOfMembers == true">
-                        {{enquiryFormDisplay.configs.columnNames.detailsOfMembers }}</th>
-                    <th *ngIf="enquiryFormDisplay.configs.showHideConfig.remarks == true">
-                        {{enquiryFormDisplay.configs.columnNames.remarks }}</th>
-                    <th *ngIf="enquiryFormDisplay.configs.showHideConfig.booked == true">{{
-                        enquiryFormDisplay.configs.columnNames.booked }}</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-enquiryForm>
-                <tr>
-                    <td *ngIf="enquiryFormDisplay.configs.showHideConfig.timestamp == true">{{ enquiryForm.timestamp}}
-                    </td>
-                    <td *ngIf="enquiryFormDisplay.configs.showHideConfig.emailAddress == true">{{
-                        enquiryForm.emailAddress
-                        }}</td>
-                    <td *ngIf="enquiryFormDisplay.configs.showHideConfig.fullName == true">{{ enquiryForm.fullName }}
-                    </td>
-                    <td *ngIf="enquiryFormDisplay.configs.showHideConfig.age == true">{{ enquiryForm.age }}</td>
-                    <td *ngIf="enquiryFormDisplay.configs.showHideConfig.gender == true">{{ enquiryForm.gender }}</td>
-                    <td *ngIf="enquiryFormDisplay.configs.showHideConfig.whatsappNumber == true">{{
-                        enquiryForm.whatsappNumber }}</td>
-                    <td *ngIf="enquiryFormDisplay.configs.showHideConfig.address == true">{{ enquiryForm.address }}</td>
-                    <td *ngIf="enquiryFormDisplay.configs.showHideConfig.howManyMembers == true" style="width: 5%;">{{
-                        enquiryForm.howManyMembers }}</td>
-                    <td *ngIf="enquiryFormDisplay.configs.showHideConfig.noOfRooms == true" style="width: 5%;">{{
-                        enquiryForm.noOfRooms }}</td>
-                    <td *ngIf="enquiryFormDisplay.configs.showHideConfig.acOrNonAc == true">{{ enquiryForm.acOrNonAc }}
-                    </td>
-                    <td *ngIf="enquiryFormDisplay.configs.showHideConfig.arrivalDate == true">{{ enquiryForm.arrivalDate
-                        }}
-                    </td>
-                    <td *ngIf="enquiryFormDisplay.configs.showHideConfig.arrivalTime == true">{{ enquiryForm.arrivalTime
-                        }}
-                    </td>
-                    <td *ngIf="enquiryFormDisplay.configs.showHideConfig.departureDate == true">{{
-                        enquiryForm.departureDate
-                        }}</td>
-                    <td *ngIf="enquiryFormDisplay.configs.showHideConfig.departureTime == true">{{
-                        enquiryForm.departureTime
-                        }}</td>
-                    <td *ngIf="enquiryFormDisplay.configs.showHideConfig.detailsOfMembers == true">{{
-                        enquiryForm.detailsOfMembers }}</td>
-                    <td *ngIf="enquiryFormDisplay.configs.showHideConfig.remarks == true">{{ enquiryForm.remarks }}</td>
-                    <td *ngIf="enquiryFormDisplay.configs.showHideConfig.booked == true">{{ enquiryForm.booked }}</td>
-                </tr>
-            </ng-template>
-        </p-table>
+<p-carousel [value]="enquiryFormDisplay.enquiryForms" [numVisible]="1" [numScroll]="1">
+    <ng-template let-enquiryForm pTemplate="item">
+        <p-card header="{{ enquiryForm.fullName }}">
+            <!-- <div>
+                    <table>
+                        <tr>
+                            <td style="font-weight: bold;">
+                                {{enquiryFormDisplay.configs.columnNames.arrivalDate}}
+                            </td>
+                            <td>{{enquiryForm.arrivalDate + " "+ enquiryForm.arrivalTime}}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">
+                                {{enquiryFormDisplay.configs.columnNames.departureDate}}
+                            </td>
+                            <td>{{enquiryForm.departureDate + " "+ enquiryForm.departureTime}}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">
+                                {{enquiryFormDisplay.configs.columnNames.howManyMembers
+                                }}
+                            </td>
+                            <td>{{ enquiryForm.howManyMembers}}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">
+                                {{enquiryFormDisplay.configs.columnNames.detailsOfMembers
+                                }}
+                            </td>
+                            <td>{{ enquiryForm.detailsOfMembers}}</td>
+                        </tr>
+                    <br>
+                    <tr>
+                        <td style="font-weight: bold;">
+                            {{enquiryFormDisplay.configs.columnNames.acOrNonAc }}
+                        </td>
+                        <td>{{enquiryForm.acOrNonAc}}</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">
+                            {{enquiryFormDisplay.configs.columnNames.noOfRooms }}
+                        </td>
+                        <td>{{ enquiryForm.noOfRooms}}</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">
+                            {{enquiryFormDisplay.configs.columnNames.age}}
+                        </td>
+                        <td>{{enquiryForm.age}}</td>
+                    </tr>
+                    <br>
+                    <tr>
+                        <td style="font-weight: bold;">
+                            {{enquiryFormDisplay.configs.columnNames.gender}}
+                        </td>
+                        <td>{{enquiryForm.gender}}</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">
+                            {{enquiryFormDisplay.configs.columnNames.emailAddress
+                            }}
+                        </td>
+                        <td>{{ enquiryForm.emailAddress}}</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">
+                            {{enquiryFormDisplay.configs.columnNames.remarks
+                            }}
+                        </td>
+                        <td>{{ enquiryForm.remarks}}</td>
+                    </tr>
+                </table>
+            </div>
+            <br> -->
+            <div class="row">
+                <div class="column">
+                    <table>
+                        <tr>
+                            <td style="font-weight: bold;">
+                                {{enquiryFormDisplay.configs.columnNames.arrivalDate}}
+                            </td>
+                            <td>{{enquiryForm.arrivalDate + " "+ enquiryForm.arrivalTime}}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">
+                                {{enquiryFormDisplay.configs.columnNames.departureDate}}
+                            </td>
+                            <td>{{enquiryForm.departureDate + " "+ enquiryForm.departureTime}}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">
+                                {{enquiryFormDisplay.configs.columnNames.acOrNonAc }}
+                            </td>
+                            <td>{{enquiryForm.acOrNonAc}}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">
+                                {{enquiryFormDisplay.configs.columnNames.noOfRooms }}
+                            </td>
+                            <td>{{ enquiryForm.noOfRooms}}</td>
+                        </tr>
 
-    </div>
-</section>
+                    </table>
+                </div>
+                <div class="column">
+                    <table>
+                        <tr>
+                            <td style="font-weight: bold;">
+                                {{enquiryFormDisplay.configs.columnNames.howManyMembers
+                                }}
+                            </td>
+                            <td>{{ enquiryForm.howManyMembers}}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">
+                                {{enquiryFormDisplay.configs.columnNames.detailsOfMembers
+                                }}
+                            </td>
+                            <td>{{ enquiryForm.detailsOfMembers}}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="column">
+                    <table>
+                        <tr>
+                            <td style="font-weight: bold;">
+                                {{enquiryFormDisplay.configs.columnNames.age}}
+                            </td>
+                            <td>{{enquiryForm.age}}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">
+                                {{enquiryFormDisplay.configs.columnNames.gender}}
+                            </td>
+                            <td>{{enquiryForm.gender}}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">
+                                {{enquiryFormDisplay.configs.columnNames.emailAddress
+                                }}
+                            </td>
+                            <td>{{ enquiryForm.emailAddress}}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">
+                                {{enquiryFormDisplay.configs.columnNames.remarks
+                                }}
+                            </td>
+                            <td>{{ enquiryForm.remarks}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="content">
+                <span><p-button label="Waitlist" (onClick)="processEnquiry(enquiryForm.emailAddress)"></p-button></span>
+                <span><p-button label="AllocateRoom"
+                        (onClick)="processEnquiry(enquiryForm.emailAddress)"></p-button></span>
+            </div>
+        </p-card>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <p>Footer content</p>
+    </ng-template>
+</p-carousel>

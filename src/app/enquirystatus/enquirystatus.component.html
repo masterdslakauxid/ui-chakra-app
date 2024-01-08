@@ -1,22 +1,13 @@
 <section class="landing-hero py-8 px-5 lg:px-8">
-    <div>
-
-        <div class="card flex justify-content-center">
-            <p-tabView>
-                <p-tabPanel header="Enquiry">
-                    <app-enquiry></app-enquiry>
-                </p-tabPanel>
-                <p-tabPanel header="Wait listed">
-                    <app-waitlisted></app-waitlisted>
-                </p-tabPanel>
-                <p-tabPanel header="Booked">
-                    <app-booked></app-booked>
-                </p-tabPanel>
-            </p-tabView>
-
-        </div>
-    </div>
-
-
-
+    <p-tabView>
+        <p-tabPanel header="Enquiry">
+            <app-enquiry></app-enquiry>
+        </p-tabPanel>
+        <p-tabPanel header="Wait listed">
+            <app-waitlisted></app-waitlisted>
+        </p-tabPanel>
+        <p-tabPanel header="Booked">
+            <app-booked></app-booked>
+        </p-tabPanel>
+    </p-tabView>
 </section>

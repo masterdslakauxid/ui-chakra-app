@@ -14,7 +14,6 @@ import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
 import { MenuModule } from 'primeng/menu';
 import { MenubarModule } from 'primeng/menubar';
-import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { LabComponent } from './lab/lab.component';
@@ -22,14 +21,10 @@ import { CalendarModule } from 'primeng/calendar';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from 'primeng/button';
+import { CarouselModule } from 'primeng/carousel';
+import { CardModule } from 'primeng/card';
 
 
-const appRoutes: Routes = [
-  { path: 'lab', component: LabComponent },
-  { path: 'enquiry', component: EnquirystatusComponent },
-  { path: 'roomstatus', component: RoomstatusComponent },
-  { path: '', component: LabComponent }
-];
 
 @NgModule({
   declarations: [
@@ -55,10 +50,9 @@ const appRoutes: Routes = [
     CalendarModule,
     FormsModule,
     ButtonModule,
-    BrowserAnimationsModule,
-    RouterModule.forRoot(
-      appRoutes, { enableTracing: true }
-    )
+    CarouselModule,
+    CardModule,
+    BrowserAnimationsModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
