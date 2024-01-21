@@ -14,12 +14,12 @@ export class HeaderComponent implements OnInit {
   items!: MenuItem[];
   ngOnInit() {
     this.items = [
-      {
-        label: 'Lab',
-        icon: 'pi pi-fw pi-phone',
-        routerLink: "/lab",
-        routerLinkActiveOptions: 'active'
-      },
+      // {
+      //   label: 'Lab',
+      //   icon: 'pi pi-fw pi-phone',
+      //   routerLink: "/lab",
+      //   routerLinkActiveOptions: 'active'
+      // },
       {
         label: 'Enquiry Details',
         icon: 'pi pi-fw pi-phone',
